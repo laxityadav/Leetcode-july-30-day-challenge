@@ -1,0 +1,25 @@
+class Solution {
+    public int nthUglyNumber(int n) {
+        PriorityQueue<Long> queue = new PriorityQueue();
+        int count=0;
+        queue.add(1L);
+        queue.add(2L);
+        queue.add(3L);
+        queue.add(5L);
+        long []arr = new long[n+1];
+        while(count < n)
+        {
+            long val = queue.poll();
+            arr[count++] = val;
+            if(!queue.contains(val*2))
+                queue.add(val*2);
+            if(!queue.contains(val*3))
+                queue.add(val*3);              
+            if(!queue.contains(val*5))
+                queue.add(val*5);               
+        }
+        // for(int val:arr)
+        //     System.out.print(val+" ");
+        return (int)arr[n-1];
+    }
+}
