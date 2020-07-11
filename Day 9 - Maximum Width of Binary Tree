@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
+        if(root == null)  return 0;
+        int max=0, count=1, a=0;
+        boolean isTrue=true;
+        LinkedList<TreeNode> list = new LinkedList<>();
+        ArrayList<TreeNode> tmp = new ArrayList<>();
+        list.add(root);
+        while(!list.isEmpty()){
+            isTrue = false;
+            TreeNode t = list.poll();
+            tmp.add(t);
+            if(t == null){
+                list.add(null);
+                list.add(null);
+            }
+            else{
+                list.add(t.left);
+                list.add(t.right);
+            }
+            count--;
+            if(count == 0){
+                int i=0;
+                count = list.size();
+                for(i=0;i<tmp.size();i++){
+                    TreeNode tn = tmp.get(i);
+                    if(tn == null) continue;
+                    else break;
+                }
+                a = i;
+                for(i=tmp.size()-1;i>=0;i--){
+                    TreeNode tn = tmp.get(i);
+                    if(tn == null) continue;
+                    else break;
+                }
+                a = a + tmp.size()-1 - i;
+                a = tmp.size() - a;
+                //System.out.println(max);
+                if(i!=-1)   max = Math.max(max, a);
+                // for(TreeNode abc:tmp){
+                //     if(abc == null) System.out.print("N ");
+                //     else  System.out.print(abc.val+" ");
+                // }                    
+                // System.out.println();
+                tmp.clear();
+                if(i == -1) a=-1;
+            }
+            if(a == -1)  break;
+        }
+        return max;
+    }
+}
