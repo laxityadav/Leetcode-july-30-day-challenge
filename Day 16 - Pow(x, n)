@@ -1,0 +1,37 @@
+class Solution {
+    static double solve(double x, int y) 
+    { 
+        double temp; 
+        if( y == 0) 
+            return 1; 
+        temp = solve(x, y/2);  
+          
+        if (y%2 == 0) 
+            return temp*temp; 
+        else
+        { 
+            if(y > 0) 
+                return x * temp * temp; 
+            else
+                return (temp * temp) / x; 
+        } 
+    }  
+//     public double solve(double x, int n, double []dp)
+//     {
+//         if(n==0) return 1.0;
+//         //if(dp[n] != 0.0) return dp[n];
+        
+//         double val = solve(x, n/2, dp) * solve(x, n-n/2, dp);    
+//         return dp[n]=val;
+//     }
+    public double myPow(double x, int n) {
+        if(x==0.0) return 0.0;
+        if(n==0) return 1.0;
+        // if(n==Integer.MAX_VALUE) n--;
+        // double []dp = new double[Math.abs(n)+1];
+        // dp[1]=x;
+        double ans = solve(x, n);
+        //if(n<0) return 1/ans;
+        return ans;
+    }
+}
