@@ -1,0 +1,32 @@
+class Solution {
+    class Pair{
+        int val, count;
+        Pair(int val, int count){
+            this.val = val;
+            this.count = count;
+        }
+    }
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        PriorityQueue<Pair> queue = new PriorityQueue<>(new Comparator<Pair>(){
+            public int compare(Pair p1, Pair p2){  return p2.count - p1.count; }
+        });
+        for(int val:nums)
+        {
+            if(map.containsKey(val))
+                  map.put(val, 1+map.get(val));
+            else  map.put(val, 1);
+        }
+        int []ans = new int[k];
+        int count=0; 
+        for (Map.Entry ent : map.entrySet()) { 
+            queue.add(new Pair((int)ent.getKey(), (int)ent.getValue()));
+        }   
+        for(int i=0;i<k;i++){
+            Pair p = queue.poll();
+            ans[count++] = p.val;
+        }
+        System.out.println(map);
+        return ans;
+    }
+}
