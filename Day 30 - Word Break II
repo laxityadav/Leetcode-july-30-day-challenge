@@ -1,0 +1,31 @@
+class Solution {
+    public List<String> solve(String s, List<String> dic, HashMap<String, List<String>> map)
+    {
+        if(map.containsKey(s))
+            return map.get(s);
+        List<String> res = new LinkedList<>();
+        
+        if(s.length() == 0){
+            res.add("");
+            return res;
+        }
+        for(String word:dic)
+        {
+            if(s.startsWith(word)){
+                List<String> sub = new LinkedList<>();
+                sub = solve(s.substring(word.length()), dic, map);
+                for(String str:sub){
+                    String tmp = word + (sub.isEmpty()?"":" ") + str;
+                    res.add(tmp.trim());
+                }
+            }
+        }
+        map.put(s, res);
+        return res;
+    }
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        
+        return solve(s, wordDict, new HashMap<String, List<String>>());
+        
+    }
+}
